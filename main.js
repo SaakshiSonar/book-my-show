@@ -94,10 +94,12 @@ const movieRating = document.querySelector(".movie-rating");
 const ratingsbtn = document.querySelector(".btn");
 
 let movieStorage = [];
-console.log(movieStorage);
+console.log();
+
+
 
 function sendMovie() {
-    if(event.keyCode == 9) {
+    if(event.keyCode == 13) {
         if(movieTitle.value != "" && movieRating.value != "") {
             const title = movieTitle.value;
             const rating = parseInt(movieRating.value);
