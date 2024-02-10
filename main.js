@@ -94,12 +94,13 @@ const movieRating = document.querySelector(".movie-rating");
 const ratingsbtn = document.querySelector(".btn");
 
 let movieStorage = [];
+console.log(movieStorage);
 
 function sendMovie() {
     if(event.keyCode == 9) {
         if(movieTitle.value != "" && movieRating.value != "") {
-            title = movieTitle.value;
-            rating = parseInt(movieRating.value);
+            const title = movieTitle.value;
+            const rating = parseInt(movieRating.value);
 
             movieStorage.push({
                 title: title,
@@ -110,7 +111,7 @@ function sendMovie() {
             movieStorage.sort((a, b) => (a.rating > b.rating) ? -1 : 1);
             console.log(movieStorage);
 
-            addMovieToList(title, rating);
+            addMovieToList();
 
             movieTitle.value = "";
             movieRating.value = "";
@@ -120,18 +121,21 @@ function sendMovie() {
     }
 }
 
-function addMovieToList(title, rating) {
+function addMovieToList() {
+movieList.innerHTML="";
+movieStorage.forEach(movie =>{
+
 
     const div = document.createElement("div");
     div.className = "list-items";
 
     div.innerHTML = `
     <div class="item-title">
-        <p>${title}}</p>
+        <p>${movie.title}</p>
     </div>
 
     <div class="item-rating">
-        <p>${rating}</p>
+        <p>${movie.rating}</p>
     </div>
 
     <div class="item-delete">
@@ -140,41 +144,5 @@ function addMovieToList(title, rating) {
     `;
 
     movieList.appendChild(div);
-}
-
-function sortByRating(element) {
-    for(let i = 0; i < movieStorage.length; i++) {
-        element.innerHTML = `
-        <div class="item-title">
-            <p>${movieStorage[i].title}</p>
-        </div>
-
-        <div class="item-rating">
-            <p>${movieStorage[i].rating}</p>
-        </div>
-
-        <div class="item-delete">
-            <i class="fa fa-trash trash-icon delete"></i>
-        </div>
-        `;
-    }
-}
-function showMoviesList(element) {
-    let innerHTML = "";
-    for (let i = 0; i < movieStorage.length; i++) {
-        innerHTML += `
-        <div class="item-title">
-            <p>${movieStorage[i].title}</p>
-        </div>
-
-        <div class="item-rating">
-            <p>${movieStorage[i].rating}</p>
-        </div>
-
-        <div class="item-delete">
-            <i class="fa fa-trash trash-icon delete"></i>
-        </div>
-        `;
-    }
-    element.innerHTML = innerHTML;
+});
 }
